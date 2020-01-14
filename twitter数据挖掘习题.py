@@ -1,6 +1,6 @@
 #coding-utf-8
 
-'''
+"""
 题目
 
 对应字段如下（每一个逗号分隔的，“”内的，则是字段的详细信息。空白则代表没有。）：
@@ -71,8 +71,32 @@ fields=bid,uid,username,v_class,content,img,time,source,rt_num,cm_num,rt_uid,rt_
 14. 该文本里，11点钟，谁发的微博次数最多。 （要求：输出用户的uid，字符串格式。）
 
 15. 该文本里，哪个用户的源微博URL次数最多。 （要求：输出用户的uid，字符串格式。）
-'''
+"""
+
+import linecache
+import time
+
+now = time.time() # 代码开始时间
+
+#数据整理
+
+data_keys = ('bid', 'uid', 'username', 'v_class', 'content', 'img', 'created_at', 'source', 'rt_num', 'cm_num', 'rt_uid', 'rt_username', 'rt_v_class', 'rt_content', 'rt_img', 'src_rt_num', 'src_cm_num', 'gender', 'rt_bid', 'location', 'rt_mid', 'mid', 'lat', 'lon', 'lbs_type', 'lbs_title', 'poiid', 'links', 'hashtags', 'ats', 'rt_links', 'rt_hashtags', 'rt_ats', 'v_url', 'rt_v_url')
 
 
+keys = {data_keys[k]:k for k in range(0,len(data_keys))}
 
+f = linecache.getlines('t.txt')
 
+lines = [x[1:-1].split('","') for x in f] #拆分
+
+#1 输出用户总数。 
+
+users = set([line[keys['username']] for line in lines])
+
+user_total = len(set(users))
+
+assert type(user_total) == int
+
+"""
+assert（断言）用于判断一个表达式，在表达式条件为 false 的时候触发异常。断言可以在条件不满足程序运行的情况下直接返回错误，而不必等待程序运行后出现崩溃的情况.
+"""
