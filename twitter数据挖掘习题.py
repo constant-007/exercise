@@ -1,4 +1,4 @@
-#coding-utf-8
+#coding=utf-8
 
 """
 题目
@@ -97,6 +97,8 @@ users = set([line[keys['username']] for line in lines])
 
 user_total = len(set(users))
 
+print(user_total)
+
 assert type(user_total) == int
 
 """
@@ -119,6 +121,7 @@ assert type(users) == list
 
 #3 有多少个2012年11月发布的tweets
 lines_from_2012_11 = filter(lambda line: line[keys['created_at']].startswith('2012-11'), lines)
+print(lines_from_2012_11)
 
 lines_total_from_2012_11 = len(lines_from_2012_11)
 
