@@ -97,8 +97,6 @@ users = set([line[keys['username']] for line in lines])
 
 user_total = len(set(users))
 
-print(user_total)
-
 assert type(user_total) == int
 
 """
