@@ -121,21 +121,102 @@ assert type(users) == list
 
 #3 有多少个2012年11月发布的tweets
 lines_from_2012_11 = filter(lambda line: line[keys['created_at']].startswith('2012-11'), lines)
-print(lines_from_2012_11)
 
-lines_total_from_2012_11 = len(lines_from_2012_11)
+lines_total_from_2012_11 = len(list(lines_from_2012_11))
 
 assert type(lines_total_from_2012_11) == int
+
+"""
+filter() 
+函数用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表。
+
+该接收两个参数，第一个为函数，第二个为序列，序列的每个元素作为参数传递给函数进行判断，然后返回 True 或 False，最后将返回 True 的元素放到新列表中。
+
+filter(function, iterable)
+function -- 判断函数。 
+iterable -- 可迭代对象。 
+返回值 -- 返回列表
+"""
+
+"""
+lambda 
+创建匿名函数。
+lambda只是一个表达式，函数体比def简单很多。 
+lambda的主体是一个表达式，而不是一个代码块。仅仅能在lambda表达式中封装有限的逻辑进去。 
+lambda函数拥有自己的命名空间，且不能访问自有参数列表之外或全局命名空间里的参数。
+虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。
+语法
+    lambda函数的语法只包含一个语句，如下：
+    lambda [arg1 [,arg2,.....argn]]:expression
+"""
+
+"""
+startswith()
+Python startswith() 方法用于检查字符串是否是以指定子字符串开头，如果是则返回 True，否则返回 False。如果参数 beg 和 end 指定值，则在指定范围内检查。
+语法
+    startswith()方法语法：
+    str.startswith(str, beg=0,end=len(string));
+参数
+    str -- 检测的字符串。
+    strbeg -- 可选参数用于设置字符串检测的起始位置。
+    strend -- 可选参数用于设置字符串检测的结束位置。
+返回值
+    如果检测到字符串则返回True，否则返回False。
+"""
 
 #4  该文本里，有哪几天的数据？ 
 
 users_by_date = [line[keys['created_at']].split(' ')[0] for line in lines]
 
-lines_by_created = list(set(users_by_date))
+lines_by_created = list(set(users_by_date)) # 去重
 
 lines_by_created.sort()
 
 assert type(lines_by_created) == list
+
+"""
+split()
+语法
+    str.split(str="", num=string.count(str))
+参数
+    str – 分隔符，默认为所有的空字符，包括空格、换行(\n)、制表符(\t)等。
+    num – 分割次数。默认为 -1, 即分隔所有。
+返回值
+    Python split() 通过指定分隔符对字符串进行切片，如果参数 num 有指定值，则分隔 num+1 个子字符串
+    返回分割后的字符串列表。
+例题
+    输入
+        str = "Line1-abcdef \nLine2-abc \nLine4-abcd";
+        print str.split( );          # 以空格为分隔符，包含 \n
+        print str.split(' ', 1 );    # 以空格为分隔符，分隔成两个
+    输出
+        ['Line1-abcdef', 'Line2-abc', 'Line4-abcd']
+        ['Line1-abcdef', '\nLine2-abc \nLine4-abcd']
+
+split()[0]
+输入输出
+    >>> str="hello boy<[www.doiido.com]>byebye"
+    >>> str.split("[")[1].split("]")[0]
+    'www.doiido.com'
+    >>> str.split("[")[1].split("]")[0].split(".")
+    ['www', 'doiido', 'com']
+    >>> str.split("o")[0]
+    'hell'
+    >>> str.split("o")[1]
+    ' b'(这里有空格)
+    >>> str.split("o")[3]
+    'iid'(这里得到的iid是第3个o后和第4个o前之间的内容)
+    >>> str.split("[")[0]
+    'hello boy<'
+解析
+    str.split("[")[1]. split("]")[0]输出的是 [ 后的内容以及 ] 前的内容。
+    str.split("[")[1]. split("]")[0]. split(".") 是先输出 [ 后的内容以及 ] 前的内容，然后通过 . 作为分隔符对字符串进行切片。
+    str.split(“o”)[0]得到的是第一个o之前的内容
+    str.split(“o”)[1]得到的是第一个o和第二个o之间的内容
+    str.split(“o”)[3]得到的是第三个o后和第四个o前之间的内容
+    str.split("[")[0]得到的是第一个 [ 之前的内容
+注意：[ ]内的数值必须小于等于split("")内分隔符的个数，否则会报错.
+"""
 
 #5 该文本里，在哪个小时发布的数据最多？ 
 # todo 这里用time模块做时间转换最好。下例只为讲解拆分方法
@@ -164,11 +245,29 @@ for line in lines:
         dateline_by_user[dateline][username] = 1
 
 for k,v in dateline_by_user.items():
-    us = v.items()
+    us = list(v.items())
     us.sort(key=lambda k:k[1],reverse=True)
     dateline_by_user[k] = {us[0][0]:us[0][1]}
 
 assert type(dateline_by_user) == dict
+
+"""
+items()
+语法
+    dict.items()
+参数
+    NA
+返回值
+    返回可遍历的(键, 值) 元组数组。
+输入
+    #!/usr/bin/python3
+    
+    dict = {'Name': 'Runoob', 'Age': 7}
+    
+    print ("Value : %s" %  dict.items())
+输出
+    Value : dict_items([('Age', 7), ('Name', 'Runoob')])
+"""
 
 #7 请按照时间顺序输出 2012-11-03 每个小时的发布tweets的频率
 
@@ -226,7 +325,7 @@ def get_user_by_max_tweets(*uids):
    
     if len(uids) > 0:
         uids = filter(lambda u:type(u) == int or u.isdigit(),uids)
-        uids = map(str,uids)
+        uids = list(map(str,uids))
         if len(uids) > 0:
             uids_dict = {x:0 for x in uids}
             for line in lines:
