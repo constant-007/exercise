@@ -320,7 +320,6 @@ def get_user_by_max_tweets(*uids):
     '''
     @deprecated:参数可为字符串或者数字
     '''
-   
     if len(uids) > 0:
         uids = filter(lambda u:type(u) == int or u.isdigit(),uids)
         uids = list(map(str,uids))
@@ -342,6 +341,25 @@ assert get_user_by_max_tweets('ab','cds','123b') == 'null'
 assert get_user_by_max_tweets('12342','cd') == '12342'
 assert get_user_by_max_tweets('28803555',28803555) == '28803555'
 assert get_user_by_max_tweets('28803555',28803555,'96165754') == '28803555'
+
+"""
+str.isdigit()
+返回值
+    如果字符串只包含数字则返回 True 否则返回 False。
+"""
+
+"""
+map()
+会根据提供的函数对指定序列做映射。
+第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。
+语法：
+    map(function, iterable, ...)
+参数
+    function -- 函数
+    iterable -- 一个或多个序列
+返回值
+    python3返回迭代器
+"""
 
 
 #12 该文本里，谁发的微博内容长度最长 
