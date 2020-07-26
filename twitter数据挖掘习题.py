@@ -280,6 +280,8 @@ for line in lines_from_2012_11_03:
 hour_timeline_from_2012_11_03 = [(k,v) for k,v in hourlines_from_2012_11_03.items()]
 hour_timeline_from_2012_11_03.sort(key=lambda k:int(k[0]))
 
+print(hour_timeline_from_2012_11_03)
+
 assert type(hour_timeline_from_2012_11_03) == list
 
 
